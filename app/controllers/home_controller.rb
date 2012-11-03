@@ -50,8 +50,8 @@ class HomeController < ApplicationController
         :section_id => section_id,
         :course_id => course_id,
         :course_name => courses[course_id]['name'],
-        :start_date => Date.strptime(stu['start_date']).to_time.to_i * 1000,
-        :end_date => Date.strptime(stu['end_date']).to_time.to_i * 1000
+        :start_date => Date.strptime(stu['start_date']),
+        :end_date => Date.strptime(stu['end_date'])
       }
     end
 
@@ -63,7 +63,7 @@ class HomeController < ApplicationController
       end
       @formatted << {
         :name => sec[0][:course_name],
-        :data => data
+        :data => data.sort_by { |hsh| hsh[0] }
       }
     end
   end
