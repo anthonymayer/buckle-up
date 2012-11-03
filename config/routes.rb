@@ -3,6 +3,7 @@ Buckleup::Application.routes.draw do
   root :to => 'home#index'
   match '/school' => 'home#school'
   match '/student' => 'home#student'
+  match '/me' => 'home#me'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

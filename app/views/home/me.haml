@@ -1,0 +1,10 @@
+= javascript_include_tag "graph"
+%script{:src => "http://code.highcharts.com/highcharts.js"}
+
+%h2
+  Hi #{@student['first_name']}
+
+#container{:style => "width: 800px; height: 600px; margin: 0 auto"}
+
+:javascript
+  window.series = #{JSON.generate(@formatted)};
