@@ -60,7 +60,6 @@ class HomeController < ApplicationController
       data = []
       sec.each do |grade|
         data << [grade[:end_date], grade[:percent]]
-        puts grade
       end
       @formatted << {
         :name => sec[0][:course_name],
