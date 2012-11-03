@@ -1,2 +1,8 @@
-%h1
-  Welcome to Buckleup!
+%form{:action => '/school', :method => 'post'}
+  %select{:name => 'org'}
+    %option
+      Select your organization
+    - @response.each do |org|
+      %option{:value => org['id']}
+        #{org['name']}
+  %input{:type => 'submit', :value => 'Go!'}

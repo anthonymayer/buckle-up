@@ -1,0 +1,9 @@
+%form{:action => '/student'}
+  %input{:type => 'hidden', :name => 'org', :value => @org}
+  %select{:name => 'school'}
+    %option
+      Select your school
+    - @response['data'].each do |sch|
+      %option{:value => sch['id']}
+        #{sch['name']}
+  %input{:type => 'submit', :value => 'Go!'}
