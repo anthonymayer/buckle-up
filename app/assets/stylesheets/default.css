@@ -164,7 +164,7 @@ hr {
 	color: #757575;
 }
 
-#menu a:hover, #menu .current_page_item a {
+#menu a:hover, #menu .current_page_item a, .selected {
 	text-decoration: none;
 	background: #FF0000;
 	box-shadow: inset 0px 0px 10px 5px rgba(0,0,0,.1);
@@ -193,6 +193,7 @@ hr {
 	border: solid;
 	border-width: medium;
 	margin: 0px auto;
+	margin-top: 185px;
 	padding: 25px 25px;
 	color: #8F8F8F;
 }

@@ -55,6 +55,9 @@ class HomeController < ApplicationController
       }
     end
 
+    @suggested_courses = {}
+    khan_course = self.khan()
+
     @formatted = []
     @student_grades.each do |id, sec|
       data = []
@@ -65,6 +68,20 @@ class HomeController < ApplicationController
         :name => sec[0][:course_name],
         :data => data.sort_by { |hsh| hsh[0] }
       }
+
+      if @suggested_courses[sec[0][:course_name]].nil?
+        khan.keys.each do |k|
+          if m = sec[0][:course_name].match(k)
+            num = sec[0][:course_name][m.end(0), m.end(0) + 3].to_i
+            khan[k].each do |info|
+              if num >= info[:lower] && num <= info[:upper]
+                @suggested_courses[sec[0][:course_name]] = info
+                break
+              end
+            end
+          end
+        end
+      end
     end
   end
 
@@ -82,5 +99,28 @@ class HomeController < ApplicationController
       request = Net::HTTP::Get.new(parsed_url.request_uri)
 
       JSON.parse(http.request(request).body)
+    end
+
+    def khan
+      return {
+        "Math" => [
+          {:lower => 100,:upper => 149, :course => "Arithmetic and Pre-Algebra", :link => "http://www.khanacademy.org/math/arithmetic"},
+          {:lower => 150,:upper => 199, :course => "Algebra", :link => "http://www.khanacademy.org/math/algebra"},
+          {:lower => 200,:upper => 249, :course => "Geometry", :link => "http://www.khanacademy.org/math/geometry"},
+          {:lower => 250,:upper => 299, :course => "Probability & Statistics", :link => "http://www.khanacademy.org/math/probability"},
+          {:lower => 300,:upper => 349, :course => "Precalculus", :link => "http://www.khanacademy.org/math/precalculus"},
+          {:lower => 350,:upper => 399, :course => "Calculus", :link => "http://www.khanacademy.org/math/calculus"}
+        ],
+        "Computer Lab" => [
+          {:lower => 300,:upper => 349, :course => "Programming Basics", :link => "http://www.khanacademy.org/cs/tutorials/programming-basics"},
+          {:lower => 350,:upper => 399, :course => "User Interaction", :link => "http://www.khanacademy.org/cs/tutorials/user-interaction"},
+          {:lower => 400,:upper => 449, :course => "Animation", :link => "http://www.khanacademy.org/cs/tutorials/animation"}
+        ],
+
+        "Art" => [
+          {:lower => 450,:upper => 499, :course => "Art History I", :link => "http://www.khanacademy.org/humanities/art-history"},
+          {:lower => 500,:upper => 7000000000, :course => "Art History II", :link => "http://www.khanacademy.org/humanities/art-history"}
+        ]
+      }
     end
 end

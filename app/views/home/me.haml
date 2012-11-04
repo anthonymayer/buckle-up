@@ -1,10 +1,20 @@
 %script{:src => "http://code.highcharts.com/highcharts.js"}
 = javascript_include_tag "application"
 
-%h2
+%h1
   Hi #{@student['first_name']}
 
-#container{:style => "width: 800px; height: 600px; margin: 0 auto"}
+#container{:style => "width: 800px; height: 400px; margin: 0 auto"}
+
+%h2
+  Suggested Courses for Remediation
+%dl
+  - @suggested_courses.each do |k,v|
+    %dt
+      = k
+    %dd
+      %a{:href => v[:link]}
+        = v[:course]
 
 :javascript
   window.series = #{JSON.generate(@formatted)};
