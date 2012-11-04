@@ -1,4 +1,5 @@
  $(function () {
+    $('#page').show();
     var chart;
     $(document).ready(function() {
         chart = new Highcharts.Chart({
